@@ -1,0 +1,51 @@
+package com.cbse.user.impl;
+
+import com.cbse.user.api.IUserService;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class UserServiceImpl implements IUserService {
+	private Map<String, User> users = new HashMap<>(); // Store users by email
+	private User currentUser;
+
+	@Override
+	public void signup(String email, String password, String name) {
+		if (users.containsKey(email)) {
+			System.out.println("Error: User with this email already exists.");
+		} else {
+			User newUser = new User(email, name, password);
+			users.put(email, newUser);
+			System.out.println("User signed up successfully: " + name);
+		}
+	}
+
+	@Override
+	public void login(String username, String password) {
+		for (User user : users.values()) {
+			if (user.getUsername().equals(username) && user.checkPassword(password)) {
+				currentUser = user;
+				currentUser.setLoggedIn(true);
+				System.out.println("User logged in: " + username);
+				return;
+			}
+		}
+		System.out.println("Invalid username or password.");
+	}
+
+	@Override
+	public void logout() {
+		if (currentUser != null && currentUser.isLoggedIn()) {
+			System.out.println("User logged out: " + currentUser.getUsername());
+			currentUser.setLoggedIn(false);
+			currentUser = null;
+		} else {
+			System.out.println("No user is currently logged in.");
+		}
+	}
+
+	@Override
+	public User getCurrentUser() {
+		return currentUser;
+	}
+}

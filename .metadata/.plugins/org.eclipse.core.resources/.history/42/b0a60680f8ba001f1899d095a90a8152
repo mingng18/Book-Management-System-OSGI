@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Consumer
+Bundle-SymbolicName: com.cbse.promo.consumer
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.cbse.promo.consumer.Activator
+Bundle-Vendor: CBSE
+Bundle-RequiredExecutionEnvironment: JavaSE-23
+Automatic-Module-Name: com.cbse.promo.consumer
+Import-Package: com.cbse.promo.api,
+ com.cbse.promo.model,
+ org.osgi.framework;version="1.3.0"
+Export-Package: com.cbse.promo.consumer
+Bundle-ActivationPolicy: lazy

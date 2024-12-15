@@ -1,0 +1,27 @@
+package com.cbse.main;
+
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+
+import com.cbse.book.consumer.BookClient;
+import com.cbse.book.impl.Book;
+import com.cbse.user.consumer.UserClient;
+
+public class Activator implements BundleActivator {
+
+	public void start(BundleContext bundleContext) throws Exception {
+		System.out.println("Starting main activator...");
+
+		BookClient bookClient = new BookClient(bundleContext);
+		UserClient userClient = new UserClient(bundleContext);
+		userClient.signup("john.doe@example.com", "John Doe", "password123");
+
+		bookClient.addBook(new Book("My Book1", "Ming Ng", "Fiction", 10.50, 50, 100));
+		bookClient.listBooks();
+	}
+
+	public void stop(BundleContext bundleContext) throws Exception {
+		System.out.println("Stopping main activator...");
+	}
+
+}

@@ -1,0 +1,26 @@
+package com.cbse.user.consumer;
+
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+
+public class Activator implements BundleActivator {
+
+	private UserClient userClient;
+
+	@Override
+	public void start(BundleContext context) throws Exception {
+		// Instantiate and start the UserClient
+		System.out.println("UserClient bundle started.");
+		userClient = new UserClient(context);
+
+		// Example usage: call the signup method
+		
+	}
+
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		// Perform any cleanup or shutdown tasks
+		System.out.println("UserClient bundle stopped.");
+		userClient = null;
+	}
+}

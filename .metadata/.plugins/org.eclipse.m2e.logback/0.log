@@ -1,0 +1,9 @@
+2024-12-15 17:34:40,343 [Worker-4: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is not available. Remote download required.
+2024-12-15 17:37:00,450 [Worker-4: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2024-12-15 19:06:38,064 [main] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16-sources.jar
+2024-12-15 19:06:38,104 [main] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16-sources.jar
+2024-12-15 21:30:18,026 [Start Help Server] INFO  org.eclipse.jetty.server.Server - jetty-12.0.15; built: 2024-11-05T19:44:57.623Z; git: 8281ae9740d4b4225e8166cc476bad237c70213a; jvm 21.0.5+11-LTS
+2024-12-15 21:30:18,121 [Start Help Server] INFO  o.e.j.server.handler.ContextHandler - Started oeje8n.ContextHandler$CoreContextHandler@5ebb5925{/help,/help,b=null,a=AVAILABLE,h=oeje8n.ContextHandler$CoreContextHandler$CoreToNestedHandler@182dc83{STARTED}}
+2024-12-15 21:30:18,122 [Start Help Server] INFO  o.e.j.s.DefaultSessionIdManager - Session workerName=node0
+2024-12-15 21:30:18,153 [Start Help Server] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@aae305b{HTTP/1.1, (http/1.1)}{127.0.0.1:50290}
+2024-12-15 21:30:18,161 [Start Help Server] INFO  org.eclipse.jetty.server.Server - Started oejs.Server@ee28394{STARTING}[12.0.15,sto=0] @14026265ms

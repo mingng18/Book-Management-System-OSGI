@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Main
+Bundle-SymbolicName: com.cbse.main
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.cbse.main.Activator
+Bundle-Vendor: CBSE
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Automatic-Module-Name: com.cbse.main
+Import-Package: com.cbse.book.consumer,
+ com.cbse.book.impl,
+ com.cbse.promo.consumer,
+ com.cbse.user.consumer,
+ org.osgi.framework;version="1.3.0"
+Bundle-ActivationPolicy: lazy

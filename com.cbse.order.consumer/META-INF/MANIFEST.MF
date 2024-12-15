@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Consumer
+Bundle-SymbolicName: com.cbse.order.consumer
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: CBSE
+Automatic-Module-Name: com.cbse.order.consumer
+Bundle-RequiredExecutionEnvironment: JavaSE-21

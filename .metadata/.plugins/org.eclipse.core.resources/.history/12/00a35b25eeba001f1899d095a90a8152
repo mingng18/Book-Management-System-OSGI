@@ -1,0 +1,20 @@
+package com.cbse.promo.api;
+
+import com.cbse.promo.model.PromoCode;
+
+import java.util.List;
+
+public interface IPromoCodeService {
+
+    // Admin-only methods
+    void createPromoCode(PromoCode promoCode);
+
+    void updatePromoCode(int id, PromoCode updatedPromoCode);
+
+    void deletePromoCode(int id);
+
+    // Get promo code by code
+    PromoCode getPromoCode(String code);
+
+    List<PromoCode> getAllActivePromoCodes();
+}

@@ -1,0 +1,7 @@
+package com.cbse.order.model;
+
+public class OrderedBook {
+	private int id;
+	private int bookId;
+	private int quantity;
+}

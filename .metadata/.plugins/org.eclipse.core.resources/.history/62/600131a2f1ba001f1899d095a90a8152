@@ -1,0 +1,60 @@
+package com.cbse.user.impl;
+
+import com.cbse.user.api.IUserService;
+import com.cbse.user.repo.UserRepository;
+
+public class UserServiceImpl implements IUserService {
+
+	private UserRepository userRepository = new UserRepository();
+
+	@Override
+	public void signUp(String email, String username, String password) {
+		// Check if the user already exists
+		if (userRepository.getUserByEmail(email) != null) {
+			System.out.println("Error: User with this email already exists.");
+		} else {
+			// Add the new user and assign the default role (2 = normal user)
+			User newUser = new User(email, username, password);
+			userRepository.addUser(newUser); // Pass role ID 2 for "normal user"
+			System.out.println("User signed up successfully: " + username);
+		}
+	}
+
+	@Override
+	public User login(String email, String password) {
+		User user = userRepository.getUserByEmail(email);
+		if (user != null && user.checkPassword(password)) {
+			user.setLoggedIn(true);
+//			userRepository.updateUserLoginStatus(email, true); // Update login status in DB
+			System.out.println("User logged in: " + user.getUsername());
+			return user;
+		} else {
+			System.out.println("Invalid email or password.");
+			return null;
+		}
+	}
+
+	@Override
+	public void logout(String email) {
+		User user = userRepository.getUserByEmail(email);
+		if (user != null && user.isLoggedIn()) {
+			user.setLoggedIn(false);
+//			userRepository.updateUserLoginStatus(email, false); // Update login status in DB
+			System.out.println("User logged out: " + user.getUsername());
+		} else {
+			System.out.println("No user is currently logged in with email: " + email);
+		}
+	}
+
+	@Override
+	public boolean userHasRole(String email, int role) {
+		// Check if the user has the specified role
+		boolean hasRole = userRepository.userHasRole(email, role);
+		if (hasRole) {
+			System.out.println("User " + email + " has role ID " + role);
+		} else {
+			System.out.println("User " + email + " does not have role ID " + role);
+		}
+		return hasRole;
+	}
+}

@@ -1,0 +1,5 @@
+package com.cbse.user.repo;
+
+public class UserRepository {
+
+}

@@ -1,0 +1,87 @@
+package com.cbse.promo.impl;
+
+import com.cbse.promo.api.IPromoService;
+import com.cbse.promo.model.PromoCode;
+import com.cbse.promo.model.PromoCriteria;
+import com.cbse.promo.repo.PromoRepository;
+import com.cbse.user.api.IUserService;
+import com.cbse.user.impl.UserServiceImpl; // Assuming your user service is implemented like this
+
+import java.util.List;
+
+public class PromoServiceImpl implements IPromoService {
+
+	private PromoRepository promoCodeRepository;
+	private IUserService userService;
+
+	// Constructor injection for the repository layer and user service for role
+	// checking
+	public PromoServiceImpl() {
+		this.promoCodeRepository = new PromoRepository(); // You can replace with DI
+		this.userService = new UserServiceImpl(); // Replace with DI if necessary
+	}
+
+	// Helper method to check if the current user is an admin (retrieve user info
+	// from session)
+	private boolean isAdmin() {
+		return userService.userIsAdmin(); 
+	}
+
+	@Override
+	public void createPromoCode(PromoCode promoCode) {
+		if (!isAdmin()) {
+			throw new SecurityException("Only admins can create promo codes.");
+		}
+		promoCodeRepository.createPromoCode(promoCode);
+	}
+
+	@Override
+	public void updatePromoCode(int id, PromoCode updatedPromoCode) {
+		if (!isAdmin()) {
+			throw new SecurityException("Only admins can update promo codes.");
+		}
+		promoCodeRepository.updatePromoCode(id, updatedPromoCode);
+	}
+
+	@Override
+	public void deletePromoCode(int id) {
+		if (!isAdmin()) {
+			throw new SecurityException("Only admins can delete promo codes.");
+		}
+		promoCodeRepository.deletePromoCode(id);
+	}
+
+	@Override
+	public void addPromoCriteriaByPromoId(PromoCriteria promoCriteria, int promoId) {
+		if (!isAdmin()) {
+			throw new SecurityException("Only admins can add promo criteria.");
+		}
+		promoCodeRepository.addPromoCriteriaByPromoId(promoCriteria, promoId);
+	}
+
+	@Override
+	public void updatePromoCriteriaByPromoId(int promoId, PromoCriteria updatedPromoCriteria) {
+		if (!isAdmin()) {
+			throw new SecurityException("Only admins can update promo criteria.");
+		}
+		promoCodeRepository.updatePromoCriteriaByPromoId(promoId, updatedPromoCriteria);
+	}
+
+	@Override
+	public void deletePromoCriteriaByPromoId(int promoId, int criteriaId) {
+		if (!isAdmin()) {
+			throw new SecurityException("Only admins can delete promo criteria.");
+		}
+		promoCodeRepository.deletePromoCriteriaByPromoId(promoId, criteriaId);
+	}
+
+	@Override
+	public PromoCode getPromoCode(String code) {
+		return promoCodeRepository.getPromoCode(code);
+	}
+
+	@Override
+	public List<PromoCode> getAllActivePromoCodes() {
+		return promoCodeRepository.getAllActivePromoCodes();
+	}
+}

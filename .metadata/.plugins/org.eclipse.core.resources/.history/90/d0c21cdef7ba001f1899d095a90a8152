@@ -1,0 +1,37 @@
+package com.cbse.main;
+
+import java.util.Date;
+import java.util.List;
+
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+
+import com.cbse.book.consumer.BookClient;
+import com.cbse.promo.consumer.PromoClient;
+import com.cbse.promo.model.PromoCode;
+//import com.cbse.book.impl.Book;
+import com.cbse.user.consumer.UserClient;
+
+public class Activator implements BundleActivator {
+
+	public void start(BundleContext bundleContext) throws Exception {
+		System.out.println("Starting main activator...");
+
+		BookClient bookClient = new BookClient(bundleContext);
+		UserClient userClient = new UserClient(bundleContext);
+		PromoClient promoClient = new PromoClient(bundleContext);
+//		userClient.signup("john.doe@example.com", "John Doe", "password123");
+		userClient.login("john.doe@example.com", "password123");
+
+//		bookClient.addBook(new Book("My Book1", "Ming Ng", "Fiction", 10.50, 50, 100));
+		bookClient.listBooks();
+
+		promoClient.createPromoCode(
+				new PromoCode(1, "YEAREND", "Year End Promo", 0.1, new Date(), new Date(), false, new List[]));
+	}
+
+	public void stop(BundleContext bundleContext) throws Exception {
+		System.out.println("Stopping main activator...");
+	}
+
+}

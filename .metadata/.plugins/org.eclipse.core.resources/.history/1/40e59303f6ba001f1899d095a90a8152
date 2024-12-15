@@ -1,0 +1,5 @@
+package com.cbse.promo.consumer;
+
+public class PromoClient {
+
+}

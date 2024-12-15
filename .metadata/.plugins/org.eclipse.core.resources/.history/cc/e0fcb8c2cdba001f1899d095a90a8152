@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Consumer
+Bundle-SymbolicName: com.cbse.book.consumer
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.cbse.book.consumer.Activator
+Bundle-Vendor: CBSE
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Automatic-Module-Name: com.cbse.book.consumer
+Import-Package: com.cbse.book.api,
+ com.cbse.book.impl,
+ org.osgi.framework;version="1.3.0"
+Export-Package:com.cbse.book.consumer
+Bundle-ActivationPolicy: lazy

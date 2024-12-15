@@ -1,0 +1,13 @@
+package com.cbse.user.api;
+
+import com.cbse.user.impl.User;
+
+public interface IUserService {
+	void signup(String email, String password, String name); // Added signup
+
+	void login(String username, String password);
+
+	void logout();
+
+	User getCurrentUser();
+}

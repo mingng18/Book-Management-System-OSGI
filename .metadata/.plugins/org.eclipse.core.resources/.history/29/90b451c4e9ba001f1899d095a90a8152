@@ -1,0 +1,49 @@
+package com.cbse.user.consumer;
+
+import com.cbse.user.api.IUserService;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+
+public class UserClient {
+	private IUserService userService;
+
+	public UserClient(BundleContext context) {
+		ServiceReference<IUserService> serviceRef = context.getServiceReference(IUserService.class);
+		if (serviceRef != null) {
+			userService = context.getService(serviceRef);
+			System.out.println("UserService retrieved successfully.");
+		} else {
+			System.out.println("UserService not available.");
+		}
+	}
+
+	public void signup(String email, String name, String password) {
+		if (userService != null) {
+			System.out.println("Signing up user...");
+			userService.signup(email, name, password);
+			System.out.println("User signed up successfully!");
+		} else {
+			System.out.println("No service available to sign up users.");
+		}
+	}
+
+	public void login(String username, String password) {
+		if (userService != null) {
+			System.out.println("Logging in...");
+			userService.login(username, password);
+			System.out.println("User logged in.");
+		} else {
+			System.out.println("No service available for login.");
+		}
+	}
+
+	public void logout() {
+		if (userService != null) {
+			System.out.println("Logging out...");
+			userService.logout();
+			System.out.println("User logged out.");
+		} else {
+			System.out.println("No service available for logout.");
+		}
+	}
+}

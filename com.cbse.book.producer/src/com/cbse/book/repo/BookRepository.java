@@ -1,0 +1,120 @@
+package com.cbse.book.repo;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.cbse.book.impl.Book;
+
+public class BookRepository {
+
+	public List<Book> getAllBooks() {
+		List<Book> books = new ArrayList<>();
+		String query = "SELECT * FROM books WHERE is_deleted = false"; // Assuming we have a column `is_deleted`
+
+		try (Connection connection = DBUtil.getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery(query)) {
+
+			while (resultSet.next()) {
+				String title = resultSet.getString("title");
+				String author = resultSet.getString("author");
+				String genre = resultSet.getString("genre");
+				double price = resultSet.getDouble("price");
+				int stockQuantity = resultSet.getInt("stock_quantity");
+				int restockThreshold = resultSet.getInt("restock_threshold");
+
+				Book book = new Book(title, author, genre, price, stockQuantity, restockThreshold);
+				books.add(book);
+			}
+		} catch (SQLException e) {
+			System.out.println("Error fetching books.");
+			e.printStackTrace();
+		}
+
+		return books;
+	}
+
+	public void addBook(Book book) {
+		String query = "INSERT INTO books (title, author, genre, price, stock_quantity, restock_threshold) VALUES (?, ?, ?, ?, ?, ?)";
+
+		try (Connection connection = DBUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+			preparedStatement.setString(1, book.getTitle());
+			preparedStatement.setString(2, book.getAuthor());
+			preparedStatement.setString(3, book.getGenre());
+			preparedStatement.setDouble(4, book.getPrice());
+			preparedStatement.setInt(5, book.getStockQuantity());
+			preparedStatement.setInt(6, book.getRestockThreshold());
+
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateBook(String title, Book updatedBook) {
+		String query = "UPDATE books SET title = ?, author = ?, genre = ?, price = ?, stock_quantity = ?, restock_threshold = ? WHERE title = ?";
+
+		try (Connection connection = DBUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+			preparedStatement.setString(1, updatedBook.getTitle());
+			preparedStatement.setString(2, updatedBook.getAuthor());
+			preparedStatement.setString(3, updatedBook.getGenre());
+			preparedStatement.setDouble(4, updatedBook.getPrice());
+			preparedStatement.setInt(5, updatedBook.getStockQuantity());
+			preparedStatement.setInt(6, updatedBook.getRestockThreshold());
+			preparedStatement.setString(7, title);
+
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteBook(String title) {
+		String query = "UPDATE books SET is_deleted = true WHERE title = ?";
+
+		try (Connection connection = DBUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+			preparedStatement.setString(1, title);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Book getBook(String title) {
+		String query = "SELECT * FROM books WHERE title = ? AND is_deleted = false";
+		Book book = null;
+
+		try (Connection connection = DBUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+			preparedStatement.setString(1, title);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				String bookTitle = resultSet.getString("title");
+				String author = resultSet.getString("author");
+				String genre = resultSet.getString("genre");
+				double price = resultSet.getDouble("price");
+				int stockQuantity = resultSet.getInt("stock_quantity");
+				int restockThreshold = resultSet.getInt("restock_threshold");
+
+				book = new Book(bookTitle, author, genre, price, stockQuantity, restockThreshold);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return book;
+	}
+}

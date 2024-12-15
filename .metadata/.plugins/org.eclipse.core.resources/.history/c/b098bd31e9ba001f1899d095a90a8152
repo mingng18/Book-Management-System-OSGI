@@ -1,0 +1,79 @@
+package com.cbse.user.impl;
+
+import java.util.List;
+
+import com.cbse.user.api.IUserService;
+import com.cbse.user.repo.UserRepository;
+
+public class UserServiceImpl implements IUserService {
+
+	private UserRepository userRepository = new UserRepository();
+	private User currentUser;
+
+	@Override
+	public void signup(String email, String password, String name) {
+		// Check if the user already exists
+		if (userRepository.getUserByEmail(email) != null) {
+			System.out.println("Error: User with this email already exists.");
+		} else {
+			// Add the new user to the database
+			User newUser = new User(email, name, password);
+			userRepository.addUser(newUser);
+			System.out.println("User signed up successfully: " + name);
+		}
+	}
+
+	@Override
+	public void login(String username, String password) {
+		// Fetch all users and search for a matching user
+		for (User user : userRepository.getAllUsers()) {
+			if (user.getUsername().equals(username) && user.checkPassword(password)) {
+				currentUser = user;
+				currentUser.setLoggedIn(true);
+				System.out.println("User logged in: " + username);
+				return;
+			}
+		}
+		System.out.println("Invalid username or password.");
+	}
+
+	@Override
+	public void logout() {
+		if (currentUser != null && currentUser.isLoggedIn()) {
+			System.out.println("User logged out: " + currentUser.getUsername());
+			currentUser.setLoggedIn(false);
+			currentUser = null;
+		} else {
+			System.out.println("No user is currently logged in.");
+		}
+	}
+
+	@Override
+	public User getCurrentUser() {
+		return currentUser;
+	}
+
+	@Override
+	public void signUp(String email, String username, String password) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void logout(String email) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean userHasRole(String email, int role) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+}

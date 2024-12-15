@@ -1,0 +1,30 @@
+package com.cbse.promo.impl;
+
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceRegistration;
+
+import com.cbse.promo.api.IPromoService;
+
+public class Activator implements BundleActivator {
+
+	private ServiceRegistration<IPromoService> serviceRegistration;
+
+	@Override
+	public void start(BundleContext context) throws Exception {
+		System.out.println("Starting Promo Service Bundle...");
+		IPromoService promoService = new PromoServiceImpl();
+		serviceRegistration = context.registerService(IPromoService.class, promoService, null);
+		System.out.println("Promo Service Registered.");
+	}
+
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		System.out.println("Stopping Promo Service Bundle...");
+		if (serviceRegistration != null) {
+			serviceRegistration.unregister();
+		}
+		System.out.println("Promo Service Unregistered.");
+	}
+
+}

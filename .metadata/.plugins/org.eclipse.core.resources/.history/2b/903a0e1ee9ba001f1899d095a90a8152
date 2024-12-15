@@ -1,0 +1,24 @@
+package com.cbse.user.api;
+
+import com.cbse.user.impl.User;
+
+import java.util.List;
+
+public interface IUserService {
+
+    // User management
+    void signUp(String email, String username, String password);
+
+    User login(String email, String password);
+
+    void logout(String email);
+
+    List<User> getAllUsers();
+
+    // Role management
+//    void addRoleToUser(String email, int role);
+//
+//    void removeRoleFromUser(String email, int role);
+
+    boolean userHasRole(String email, int role);
+}

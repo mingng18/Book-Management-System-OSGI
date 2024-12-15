@@ -1,0 +1,22 @@
+package com.cbse.book.consumer;
+
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+
+import com.cbse.book.impl.Book;
+
+public class Activator implements BundleActivator {
+
+	public void start(BundleContext bundleContext) throws Exception {
+		System.out.println("Starting Book Consumer Bundle...");
+
+		// Initialize the BookClient and consume the service
+		BookClient client = new BookClient(bundleContext);
+
+	}
+
+	public void stop(BundleContext bundleContext) throws Exception {
+		System.out.println("Stopping Book Consumer Bundle...");
+	}
+
+}
