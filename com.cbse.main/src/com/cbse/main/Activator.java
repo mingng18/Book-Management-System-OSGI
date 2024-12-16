@@ -7,6 +7,7 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 import com.cbse.book.consumer.BookClient;
+import com.cbse.order.consumer.OrderClient;
 import com.cbse.promo.consumer.PromoClient;
 import com.cbse.promo.model.PromoCode;
 import com.cbse.promo.model.PromoCriteria;
@@ -23,9 +24,10 @@ public class Activator implements BundleActivator {
 		PromoClient promoClient = new PromoClient(bundleContext);
 //		userClient.signup("john.doe@example.com", "John Doe", "password123");
 		userClient.login("john.doe@example.com", "password123");
-//		userClient.getCurrentUser();
+		OrderClient orderClient = new OrderClient(bundleContext);
 
 //		bookClient.addBook(new Book("My Book1", "Ming Ng", "Fiction", 10.50, 50, 100));
+
 		bookClient.listBooks();
 
 		// 1. Create a new PromoCode
@@ -40,8 +42,13 @@ public class Activator implements BundleActivator {
 //				promoCode.getId());
 //		promoClient.addPromoCriteriaByPromoId(new PromoCriteria(4, "20% off on next purchase", "Percentage", "20%"),
 //				promoCode.getId());
-		
-		promoClient.getAllActivePromoCodes();
+
+//		promoClient.getAllActivePromoCodes();
+
+		orderClient.initializeActiveOrder();
+//		orderClient.addBookToCart(2, 3);
+//		orderClient.applyPromoCode("YEAREND");
+//		orderClient.checkout();
 
 		// 3. Update one of the criteria (let's update Criteria2)
 //		PromoCriteria updatedCriteria = new PromoCriteria(2, "Free shipping on orders above $50", "Shipping",
@@ -56,6 +63,7 @@ public class Activator implements BundleActivator {
 //
 //		// Fetching the promo code to ensure deletion
 //		promoClient.getAllActivePromoCodes();
+
 	}
 
 	public void stop(BundleContext bundleContext) throws Exception {

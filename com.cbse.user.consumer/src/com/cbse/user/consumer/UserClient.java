@@ -1,7 +1,8 @@
 package com.cbse.user.consumer;
 
 import com.cbse.user.api.IUserService;
-import com.cbse.user.impl.User;
+import com.cbse.user.model.User;
+
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 

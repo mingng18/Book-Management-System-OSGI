@@ -1,7 +1,7 @@
 package com.cbse.book.consumer;
 
 import com.cbse.book.api.IBookService;
-import com.cbse.book.impl.Book;
+import com.cbse.book.model.Book;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;

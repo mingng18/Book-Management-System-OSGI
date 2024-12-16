@@ -4,42 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
 
-import com.cbse.user.impl.User;
+import com.cbse.user.model.User;
 
 public class UserRepository {
 
-	// 1. Get all users (excluding deleted ones)
-	public List<User> getAllUsers() {
-		List<User> users = new ArrayList<>();
-		String query = "SELECT * FROM users WHERE is_deleted = false";
 
-		try (Connection connection = DBUtil.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement(query);
-				ResultSet resultSet = preparedStatement.executeQuery()) {
-
-			while (resultSet.next()) {
-				String email = resultSet.getString("email");
-				String username = resultSet.getString("name");
-				String password = resultSet.getString("hashed_password");
-
-				User user = new User(email, username, password);
-				users.add(user);
-			}
-		} catch (SQLException e) {
-			System.out.println("Error fetching users.");
-			e.printStackTrace();
-		}
-
-		return users;
-	}
-
-	// 2. Add a new user (default role = 2, normal user)
+	// Add a new user (default role = 2, normal user)
 	public void addUser(User user) {
-		String userQuery = "INSERT INTO users (email, name, hashed_password, created_at, updated_at, is_deleted) VALUES (?, ?, ?, false)";
+		String userQuery = "INSERT INTO users (email, name, hashed_password, created_at, updated_at, is_deleted) VALUES (?, ?, ?, ?, ?, false)";
 		String roleQuery = "INSERT INTO user_roles (user_id, role_id) VALUES (?, 2)";
 
 		try (Connection connection = DBUtil.getConnection()) {
@@ -48,19 +21,20 @@ public class UserRepository {
 			try (PreparedStatement userStatement = connection.prepareStatement(userQuery,
 					PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-				// Insert into users table
 				userStatement.setString(1, user.getEmail());
 				userStatement.setString(2, user.getUsername());
 				userStatement.setString(3, user.getPassword());
-				Date currentDate = new Date();
+				java.util.Date currentDate = new java.util.Date();
 				userStatement.setTimestamp(4, new java.sql.Timestamp(currentDate.getTime())); // created_at
 				userStatement.setTimestamp(5, new java.sql.Timestamp(currentDate.getTime())); // updated_at
+
 				userStatement.executeUpdate();
 
 				// Retrieve generated user_id
 				ResultSet generatedKeys = userStatement.getGeneratedKeys();
 				if (generatedKeys.next()) {
 					int userId = generatedKeys.getInt(1);
+					user.setId(userId); // Set the generated ID to the User object
 
 					// Insert default role into user_roles table
 					try (PreparedStatement roleStatement = connection.prepareStatement(roleQuery)) {
@@ -80,7 +54,7 @@ public class UserRepository {
 		}
 	}
 
-	// 3. Update user details
+	// Update user details
 	public void updateUser(String email, User updatedUser) {
 		String query = "UPDATE users SET name = ?, hashed_password = ? WHERE email = ? AND is_deleted = false";
 
@@ -98,7 +72,7 @@ public class UserRepository {
 		}
 	}
 
-	// 4. Soft delete a user by email
+	// Soft delete a user by email
 	public void deleteUser(String email) {
 		String query = "UPDATE users SET is_deleted = true WHERE email = ?";
 
@@ -113,9 +87,9 @@ public class UserRepository {
 		}
 	}
 
-	// 5. Get a specific user by email
+	// Get a specific user by email
 	public User getUserByEmail(String email) {
-		String query = "SELECT * FROM users WHERE email = ? AND is_deleted = false";
+		String query = "SELECT id, email, name, hashed_password FROM users WHERE email = ? AND is_deleted = false";
 		User user = null;
 
 		try (Connection connection = DBUtil.getConnection();
@@ -125,10 +99,11 @@ public class UserRepository {
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
+				int id = resultSet.getInt("id"); // Fetch user ID
 				String username = resultSet.getString("name");
 				String password = resultSet.getString("hashed_password");
 
-				user = new User(email, username, password);
+				user = new User(id, email, username, password); // Pass ID to constructor
 			}
 		} catch (SQLException e) {
 			System.out.println("Error fetching user by email.");

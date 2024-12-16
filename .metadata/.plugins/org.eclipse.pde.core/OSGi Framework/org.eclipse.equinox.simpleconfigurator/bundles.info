@@ -15,6 +15,8 @@ ch.qos.logback.core,1.5.12,file:/C:/Users/mingng/Desktop/eclipse/plugins/ch.qos.
 com.cbse.book.consumer,1.0.0.qualifier,file:/C:/xampp/htdocs/eclipse-workspace/com.cbse.book.consumer/,4,true
 com.cbse.book.producer,1.0.0.qualifier,file:/C:/xampp/htdocs/eclipse-workspace/com.cbse.book.producer/,4,true
 com.cbse.main,1.0.0.qualifier,file:/C:/xampp/htdocs/eclipse-workspace/com.cbse.main/,4,true
+com.cbse.order.consumer,1.0.0.qualifier,file:/C:/xampp/htdocs/eclipse-workspace/com.cbse.order.consumer/,4,true
+com.cbse.order.producer,1.0.0.qualifier,file:/C:/xampp/htdocs/eclipse-workspace/com.cbse.order.producer/,4,true
 com.cbse.promo.consumer,1.0.0.qualifier,file:/C:/xampp/htdocs/eclipse-workspace/com.cbse.promo.consumer/,4,true
 com.cbse.promo.producer,1.0.0.qualifier,file:/C:/xampp/htdocs/eclipse-workspace/com.cbse.promo.producer/,4,true
 com.cbse.user.consumer,1.0.0.qualifier,file:/C:/xampp/htdocs/eclipse-workspace/com.cbse.user.consumer/,4,true

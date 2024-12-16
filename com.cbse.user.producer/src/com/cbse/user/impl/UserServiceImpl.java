@@ -1,6 +1,7 @@
 package com.cbse.user.impl;
 
 import com.cbse.user.api.IUserService;
+import com.cbse.user.model.User;
 import com.cbse.user.repo.UserRepository;
 
 public class UserServiceImpl implements IUserService {
@@ -15,7 +16,7 @@ public class UserServiceImpl implements IUserService {
 			System.out.println("Error: User with this email already exists.");
 		} else {
 			// Add the new user and assign the default role (2 = normal user)
-			User newUser = new User(email, username, password);
+			User newUser = new User(-1, email, username, password);
 			userRepository.addUser(newUser); // Pass role ID 2 for "normal user"
 			System.out.println("User signed up successfully: " + username);
 		}
@@ -61,7 +62,7 @@ public class UserServiceImpl implements IUserService {
 			return false; // No user logged in
 		}
 //		System.out.println("Current role " + currentUser.getRoles());
-		
+
 		return userRepository.userHasRole(currentUser.getEmail(), 1);
 	}
 

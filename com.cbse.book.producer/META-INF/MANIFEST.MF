@@ -10,5 +10,5 @@ Automatic-Module-Name: com.cbse.book.producer
 Import-Package: com.mysql.cj.jdbc,
  org.osgi.framework;version="1.3.0"
 Export-Package: com.cbse.book.api,
- com.cbse.book.impl
+ com.cbse.book.model
 Bundle-ActivationPolicy: lazy

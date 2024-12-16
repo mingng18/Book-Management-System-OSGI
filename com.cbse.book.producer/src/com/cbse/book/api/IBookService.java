@@ -2,7 +2,7 @@ package com.cbse.book.api;
 
 import java.util.List;
 
-import com.cbse.book.impl.Book;
+import com.cbse.book.model.Book;
 
 public interface IBookService {
 	void addBook(Book book);

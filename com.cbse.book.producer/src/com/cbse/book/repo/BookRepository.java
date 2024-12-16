@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cbse.book.impl.Book;
+import com.cbse.book.model.Book;
 
 public class BookRepository {
 

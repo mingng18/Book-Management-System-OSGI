@@ -4,5 +4,10 @@ Bundle-Name: Consumer
 Bundle-SymbolicName: com.cbse.order.consumer
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: CBSE
-Automatic-Module-Name: com.cbse.order.consumer
 Bundle-RequiredExecutionEnvironment: JavaSE-21
+Automatic-Module-Name: com.cbse.order.consumer
+Import-Package: com.cbse.order.api,
+ com.cbse.order.model,
+ org.osgi.framework;version="1.3.0"
+Export-Package: com.cbse.order.consumer
+Bundle-ActivationPolicy: lazy

@@ -4,7 +4,7 @@ Bundle-Name: Consumer
 Bundle-SymbolicName: com.cbse.promo.consumer
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: CBSE
-Bundle-RequiredExecutionEnvironment: JavaSE-23
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: com.cbse.promo.consumer
 Import-Package: com.cbse.promo.api,
  com.cbse.promo.model,

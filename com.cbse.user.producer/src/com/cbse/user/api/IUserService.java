@@ -1,6 +1,6 @@
 package com.cbse.user.api;
 
-import com.cbse.user.impl.User;
+import com.cbse.user.model.User;
 
 public interface IUserService {
 

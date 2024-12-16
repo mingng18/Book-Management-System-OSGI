@@ -8,7 +8,8 @@ Bundle-Vendor: CBSE
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: com.cbse.main
 Import-Package: com.cbse.book.consumer,
- com.cbse.book.impl,
+ com.cbse.book.model,
+ com.cbse.order.consumer,
  com.cbse.promo.consumer,
  com.cbse.promo.model,
  com.cbse.user.consumer,
