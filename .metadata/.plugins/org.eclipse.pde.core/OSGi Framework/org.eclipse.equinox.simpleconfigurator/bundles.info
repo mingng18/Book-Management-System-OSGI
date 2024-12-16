@@ -12,6 +12,8 @@ bndtools.api,7.0.0.202310060912,file:/C:/Users/mingng/Desktop/eclipse/plugins/bn
 bndtools.jareditor,7.0.0.202310060912,file:/C:/Users/mingng/Desktop/eclipse/plugins/bndtools.jareditor_7.0.0.202310060912.jar,4,true
 ch.qos.logback.classic,1.5.12,file:/C:/Users/mingng/Desktop/eclipse/plugins/ch.qos.logback.classic_1.5.12.jar,4,true
 ch.qos.logback.core,1.5.12,file:/C:/Users/mingng/Desktop/eclipse/plugins/ch.qos.logback.core_1.5.12.jar,4,true
+com.cbse.analysis.consumer,1.0.0.qualifier,file:/C:/xampp/htdocs/eclipse-workspace/com.cbse.analysis.consumer/,4,true
+com.cbse.analysis.producer,1.0.0.qualifier,file:/C:/xampp/htdocs/eclipse-workspace/com.cbse.analysis.producer/,4,true
 com.cbse.book.consumer,1.0.0.qualifier,file:/C:/xampp/htdocs/eclipse-workspace/com.cbse.book.consumer/,4,true
 com.cbse.book.producer,1.0.0.qualifier,file:/C:/xampp/htdocs/eclipse-workspace/com.cbse.book.producer/,4,true
 com.cbse.main,1.0.0.qualifier,file:/C:/xampp/htdocs/eclipse-workspace/com.cbse.main/,4,true

@@ -14,7 +14,7 @@ public class BookRepository {
 
 	public List<Book> getAllBooks() {
 		List<Book> books = new ArrayList<>();
-		String query = "SELECT * FROM books WHERE is_deleted = false"; // Assuming we have a column `is_deleted`
+		String query = "SELECT * FROM books WHERE is_deleted = false";
 
 		try (Connection connection = DBUtil.getConnection();
 				Statement statement = connection.createStatement();
@@ -116,5 +116,61 @@ public class BookRepository {
 		}
 
 		return book;
+	}
+
+	public List<Book> getBestSellingBooks() {
+		List<Book> bestSellingBooks = new ArrayList<>();
+		String query = "SELECT b.title, b.author, b.price, SUM(ob.quantity) AS total_quantity " + "FROM books b "
+				+ "JOIN ordered_books ob ON b.id = ob.book_id " + "GROUP BY b.title, b.author, b.price "
+				+ "ORDER BY total_quantity DESC";
+
+		try (Connection connection = DBUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(query);
+				ResultSet resultSet = preparedStatement.executeQuery()) {
+
+			while (resultSet.next()) {
+				String title = resultSet.getString("title");
+				String author = resultSet.getString("author");
+				double price = resultSet.getDouble("price");
+				int totalQuantity = resultSet.getInt("total_quantity");
+
+				Book book = new Book(title, author, "", price, totalQuantity, 0);
+				bestSellingBooks.add(book);
+			}
+		} catch (SQLException e) {
+			System.out.println("Error fetching best-selling books.");
+			e.printStackTrace();
+		}
+
+		return bestSellingBooks;
+	}
+
+	public List<Book> getBestEarningBooks() {
+		List<Book> bestEarningBooks = new ArrayList<>();
+		String query = "SELECT b.title, b.author, b.price, "
+				+ "SUM((ob.quantity * b.price) * (1 - COALESCE(p.discount_rate, 0)/ 100)) AS total_earnings "
+				+ "FROM books b " + "JOIN ordered_books ob ON b.id = ob.book_id "
+				+ "JOIN orders o ON ob.order_id = o.id " + "LEFT JOIN promoted_orders po ON o.id = po.order_id "
+				+ "LEFT JOIN promos p ON po.promo_id = p.id " + "GROUP BY b.id, b.title, b.author, b.price "
+				+ "ORDER BY total_earnings DESC";
+
+		try (Connection connection = DBUtil.getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(query);
+				ResultSet resultSet = preparedStatement.executeQuery()) {
+
+			while (resultSet.next()) {
+				String title = resultSet.getString("title");
+				String author = resultSet.getString("author");
+				double price = resultSet.getDouble("total_earnings");
+
+				Book book = new Book(title, author, "", price, 0, 0);
+				bestEarningBooks.add(book);
+			}
+		} catch (SQLException e) {
+			System.out.println("Error fetching best-earning books.");
+			e.printStackTrace();
+		}
+
+		return bestEarningBooks;
 	}
 }

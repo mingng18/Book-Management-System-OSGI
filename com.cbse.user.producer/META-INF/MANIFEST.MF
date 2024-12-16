@@ -10,6 +10,5 @@ Automatic-Module-Name: com.cbse.user.producer
 Import-Package: com.mysql.cj.jdbc,
  org.osgi.framework;version="1.3.0"
 Export-Package: com.cbse.user.api,
- com.cbse.user.impl,
  com.cbse.user.model
 Bundle-ActivationPolicy: lazy

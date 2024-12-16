@@ -14,4 +14,8 @@ public interface IBookService {
 	Book getBook(String title);
 
 	List<Book> getAllBooks();
+
+	List<Book> getBestSellingBooks();
+
+	List<Book> getBestEarningBooks();
 }

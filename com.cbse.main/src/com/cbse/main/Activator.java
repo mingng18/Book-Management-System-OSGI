@@ -5,7 +5,7 @@ import java.util.Date;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-
+import com.cbse.analysis.consumer.AnalysisClient;
 import com.cbse.book.consumer.BookClient;
 import com.cbse.order.consumer.OrderClient;
 import com.cbse.promo.consumer.PromoClient;
@@ -19,12 +19,14 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext bundleContext) throws Exception {
 		System.out.println("Starting main activator...");
 
-		BookClient bookClient = new BookClient(bundleContext);
 		UserClient userClient = new UserClient(bundleContext);
-		PromoClient promoClient = new PromoClient(bundleContext);
 //		userClient.signup("john.doe@example.com", "John Doe", "password123");
 		userClient.login("john.doe@example.com", "password123");
+
+		BookClient bookClient = new BookClient(bundleContext);
+		PromoClient promoClient = new PromoClient(bundleContext);
 		OrderClient orderClient = new OrderClient(bundleContext);
+		AnalysisClient analysisClient = new AnalysisClient(bundleContext);
 
 //		bookClient.addBook(new Book("My Book1", "Ming Ng", "Fiction", 10.50, 50, 100));
 
@@ -45,11 +47,6 @@ public class Activator implements BundleActivator {
 
 //		promoClient.getAllActivePromoCodes();
 
-		orderClient.initializeActiveOrder();
-//		orderClient.addBookToCart(2, 3);
-//		orderClient.applyPromoCode("YEAREND");
-//		orderClient.checkout();
-
 		// 3. Update one of the criteria (let's update Criteria2)
 //		PromoCriteria updatedCriteria = new PromoCriteria(2, "Free shipping on orders above $50", "Shipping",
 //				"Free on orders > $50");
@@ -64,6 +61,13 @@ public class Activator implements BundleActivator {
 //		// Fetching the promo code to ensure deletion
 //		promoClient.getAllActivePromoCodes();
 
+		orderClient.initializeActiveOrder();
+//		orderClient.addBookToCart(2, 3);
+//		orderClient.applyPromoCode("YEAREND");
+//		orderClient.checkout();
+
+		analysisClient.displayBestSellingBooks();
+		analysisClient.displayBestEarningBooks();
 	}
 
 	public void stop(BundleContext bundleContext) throws Exception {

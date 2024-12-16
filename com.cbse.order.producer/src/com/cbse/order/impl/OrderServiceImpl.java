@@ -1,8 +1,8 @@
 package com.cbse.order.impl;
 
 import com.cbse.order.repo.OrderRepository;
+import com.cbse.promo.api.IPromoService;
 import com.cbse.promo.model.PromoCode;
-import com.cbse.promo.repo.PromoRepository;
 import com.cbse.order.api.IOrderService;
 import com.cbse.order.model.Order;
 
@@ -11,15 +11,15 @@ import java.util.List;
 public class OrderServiceImpl implements IOrderService {
 
 	private final OrderRepository orderRepository;
-	private final PromoRepository promoRepository;
+	private final IPromoService promoService;
 	private int currentOrderId = -1; // Active unpaid order ID
 	private int currentUserId;
 	private double promoDiscountRate = 0.0; // Tracks promo discount rate
 
 	// Constructor Injection
-	public OrderServiceImpl(int userId) {
+	public OrderServiceImpl(int userId, IPromoService promoService) {
 		this.orderRepository = new OrderRepository();
-		this.promoRepository = new PromoRepository();
+		this.promoService = promoService;
 		this.currentUserId = userId;
 	}
 
@@ -41,7 +41,7 @@ public class OrderServiceImpl implements IOrderService {
 		}
 
 		// Fetch discount rate from the database
-		PromoCode currentPromoCode = promoRepository.getPromoCode(promoCode);
+		PromoCode currentPromoCode = promoService.getPromoCode(promoCode);
 
 		if (currentPromoCode == null) {
 			System.out.println("Invalid promo code or promo code has expired.");

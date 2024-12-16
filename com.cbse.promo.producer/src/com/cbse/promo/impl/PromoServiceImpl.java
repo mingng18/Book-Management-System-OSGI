@@ -23,7 +23,6 @@ public class PromoServiceImpl implements IPromoService {
 	// Helper method to check if the current user is an admin (retrieve user info
 	// from session)
 	private boolean isAdmin() {
-//		System.out.println("Service " + userService.getCurrentUser());
 		return userService.userIsAdmin();
 	}
 

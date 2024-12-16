@@ -6,6 +6,7 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
 import com.cbse.order.api.IOrderService;
+import com.cbse.promo.api.IPromoService;
 import com.cbse.user.api.IUserService;
 
 public class Activator implements BundleActivator {
@@ -15,23 +16,26 @@ public class Activator implements BundleActivator {
 	@Override
 	public void start(BundleContext context) throws Exception {
 
-		System.out.println("Starting Promo Service Bundle...");
+		System.out.println("Starting Order Service Bundle...");
 
 		// Retrieve IUserService from the BundleContext
 		ServiceReference<IUserService> userServiceRef = context.getServiceReference(IUserService.class);
 		IUserService userService = context.getService(userServiceRef);
 
-		IOrderService promoService = new OrderServiceImpl(userService.getCurrentUser().getId());
-		serviceRegistration = context.registerService(IOrderService.class, promoService, null);
-		System.out.println("Promo Service Registered.");
+		ServiceReference<IPromoService> promoServiceRef = context.getServiceReference(IPromoService.class);
+		IPromoService promoService = context.getService(promoServiceRef);
+
+		IOrderService orderService = new OrderServiceImpl(userService.getCurrentUser().getId(), promoService);
+		serviceRegistration = context.registerService(IOrderService.class, orderService, null);
+		System.out.println("Order Service Registered.");
 	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		System.out.println("Stopping Promo Service Bundle...");
+		System.out.println("Stopping Order Service Bundle...");
 		if (serviceRegistration != null) {
 			serviceRegistration.unregister();
 		}
-		System.out.println("Promo Service Unregistered.");
+		System.out.println("Order Service Unregistered.");
 	}
 }
